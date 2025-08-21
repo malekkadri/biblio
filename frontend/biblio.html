@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo2" type="image/x-icon">
+    <script src="fctverif.js"></script>
+    <title>bibliotheque</title>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <img src="icon-logo.jpg" alt="logo" id="logo">
+            <ul>
+                <li><a href="biblio.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="terms.html">Terms of Service</a></li>
+                <li><a href="privacy.html">Privacy Policy</a></li>
+            </ul>
+            <form id="searchForm" action="emprunter.html" method="get">
+                <input type="text" name="query" placeholder="Search..." required>
+                <button type="submit">Search</button>
+            </form>
+            <script>
+            document.getElementById("searchForm").addEventListener("submit", function (event) {
+                if (!localStorage.getItem("isLoggedIn")) {
+                    event.preventDefault(); 
+                    alert("Please create an account or log in before searching for books.");
+                    window.location.href = "inscri.html"; 
+                }
+            });
+            </script>
+
+            <div id="account-logout-container">
+                <a href="inscri.html" id="account-icon" title="Create an account">
+                    <img id="account-img" src="iconinscri.png" alt="Account" />
+                </a>
+                <span id="username-display" style="margin-left: 8px; font-weight: bold;"></span>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+            <script>
+            function logout() {
+                localStorage.removeItem("isLoggedIn");
+                alert("You have been logged out.");
+    
+                const accountImg = document.getElementById("account-img");
+                if (accountImg) {
+                    accountImg.style.backgroundColor = "#e91313"; 
+                    accountImg.style.transform = "scale(1)";
+                }
+                window.location.href = "biblio.html";
+            }
+            </script>
+            <script>
+            window.onload = function() {
+                const accountImg = document.getElementById("account-img");
+                const usernameDisplay = document.getElementById("username-display");
+                if (localStorage.getItem("isLoggedIn") === "true") {
+                    accountImg.style.backgroundColor = "#28a745"; 
+                    let username = localStorage.getItem("username");
+                    if (username) {
+                        usernameDisplay.textContent = username; 
+                    }
+                } else {    
+                    accountImg.style.backgroundColor = "#e91313";    
+                    usernameDisplay.textContent = ""; 
+                }
+            };
+            function logout() {
+                localStorage.removeItem("isLoggedIn");
+                localStorage.removeItem("username");
+                alert("You have been logged out.");    
+                const accountImg = document.getElementById("account-img");    
+                const usernameDisplay = document.getElementById("username-display");    
+                if (accountImg) {    
+                    accountImg.style.backgroundColor = "#e91313";    
+                    accountImg.style.transform = "scale(1)";
+                }
+                if (usernameDisplay) {
+                    usernameDisplay.textContent = "";
+                }
+                window.location.href = "biblio.html";
+            }
+        </script>
+
+
+        </nav>
+        <main>
+            <div class="left-section">
+                <h1>WELCOME TO BIBLIOTHEQUE</h1>
+                <h2>so many books, so little time</h2>
+                <h3>Libraries  <strong>store the enegry that fuels the imaginations </strong></h3>
+                <p>Your one-stop destination for all your reading needs.</p>
+            </div>
+            <div class="right-section">
+                <div class="image-mask"></div>
+                <img src="bib3.jpg" alt="Library Image">
+            </div>
+
+        </main>
+
+        <footer>
+            <p>
+                &copy; 2025 Bibliotheque. All rights reserved. | <a href="terms.html">Terms of Service</a> | <a href="privacy.html">Privacy Policy</a>
+            </p>
+        </footer>
+    </div>
+</body>
+</html>

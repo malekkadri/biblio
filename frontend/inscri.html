@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INSCRIPTION</title>
+    <script src="inscri.js"></script>
+    <link rel="icon" href="iconinscri.png" type="image/x-icon">
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #1f1f1f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+fieldset {
+    background-color: #2c2c2c;
+    border: none;
+    padding: 30px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: left;
+}
+
+legend {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #444;
+    color: white;
+}
+
+input:focus {
+    outline: 2px solid #e91313;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #e91313;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff2e2e;
+}
+</style>
+</head>
+<body>
+   <form  action="http://127.0.0.1:8000/utilisateur" method="post" onsubmit="return validateForm()">
+    <fieldset>
+        <legend>INSCRIPTION</legend>
+        Votre ID* <input type="text" name="id" id="id" placeholder="  ID" required>
+        <br>
+        Votre Nom* <input type="text" name="nom" id="nom" placeholder=" Nom" required>
+        <br>
+        Votre prenom *<input type="text" name="prenom" id="prenom" placeholder="  Prenom" required>
+        <br>
+        Votre email :<input type="email" name="email" id="email" placeholder="  Email">
+        <br>
+        Votre Tel :<input type="tel" name="tel" id="tel" placeholder="  Telephone">
+        <br>
+        Votre Mot de passe *<input type="password" name="password" id="password" placeholder=" Mot de passe" required>
+        <br>
+        Confirmer* <input type="password" name="confirm_password" id="confirm_password" placeholder=" Confirmer Mot de passe" required>
+        <br>
+        <input type="submit" value="connecter">
+    </fieldset>
+</form>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        textarea {
+            resize: none;
+            height: 100px;
+        }
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        legend {
+            font-weight: bold;
+            padding: 0 10px;
+        }
+        #list {
+            margin-bottom: 10px;
+        }
+        #viewDetails {
+            background-color: #007bff;
+        }
+        #viewDetails:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <label for="list">liste de toutes les livres</label>
+    <select name="list" id="list">
+        <option value="book1">Book 1</option>
+        <option value="book2">Book 2</option>
+        <option value="book3">Book 3</option>
+        <option value="book4">Book 4</option>
+    </select>
+    <br>
+    <label for="details">Details</label>
+    <textarea id="details" rows="4" cols="50" readonly>
+        Book details will be displayed here.
+    </textarea>
+    <br>
+    <button type="button" id="viewDetails">View Details</button>
+        
+</body>
+</html>
