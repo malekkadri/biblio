@@ -1,6 +1,3 @@
-from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List
-from database import Database
 import sqlite3
 from datetime import datetime
 
@@ -25,6 +22,35 @@ class utilisateur:
                 'success': False,
                 'message': "cet email est deja utilisé"
             }
+        except Exception as e:
+            return {
+                'success': False,
+                'message': f'Erreur : {str(e)}'
+            }
+
+    def verifier_identifiants(self, email, mot_de_passe):
+        try:
+            with self.bd.connect() as conn:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT id, nom, prenom, mot_de_passe FROM utilisateur WHERE email = ?",
+                    (email,)
+                )
+                row = cursor.fetchone()
+                if row and row["mot_de_passe"] == mot_de_passe:
+                    return {
+                        'success': True,
+                        'message': 'Connexion réussie',
+                        'utilisateur': {
+                            'id': row['id'],
+                            'nom': row['nom'],
+                            'prenom': row['prenom']
+                        }
+                    }
+                return {
+                    'success': False,
+                    'message': 'Email ou mot de passe incorrect'
+                }
         except Exception as e:
             return {
                 'success': False,
@@ -66,19 +92,13 @@ class livre:
                 'message': f'Erreur : {str(e)}'
             }
 
-# bibliotheque
-class bibliotheque(BaseModel):
-    num: int
-    categorie: str
-
 # emprunt
-# CORRECTION : Suppression de l'héritage de BaseModel
 class emprunt:
     def __init__(self, bd):
         self.bd = bd
     
-    def creer(self, id_livre, id_utilisateur, num_biblio, date_emprunter, date_remettre):
-        try: 
+    def creer(self, id_utilisateur, id_livre, date_remettre, num_biblio=None):
+        try:
             with self.bd.connect() as conn:
                 cursor = conn.cursor()
                 cursor.execute('SELECT disponible FROM livre WHERE identifiant = ?', (id_livre,))
@@ -86,19 +106,17 @@ class emprunt:
                 if not livre or not livre['disponible']:
                     return {
                         'success': False,
-                        'message': 'Ce livre n\'est pas disponible'
+                        'message': "Ce livre n'est pas disponible"
                     }
-                
-                # Marquer le livre comme non disponible
+
                 date_emprunter = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-                cursor.execute('''
-                INSERT INTO emprunt (id_livre, id_utilisateur, num_biblio, date_emprunter, date_remettre, returned)
-                VALUES (?, ?, ?, ?, ?, ?)
-                ''', (id_livre, id_utilisateur, num_biblio, date_emprunter, date_remettre, 0))
-                
-                # CORRECTION : L'instruction UPDATE utilise 'identifiant' au lieu de 'id'
+                cursor.execute(
+                    '''INSERT INTO emprunt (id_utilisateur, id_livre, num_biblio, date_emprunter, date_remettre, returned)
+                    VALUES (?, ?, ?, ?, ?, 0)''',
+                    (id_utilisateur, id_livre, num_biblio, date_emprunter, date_remettre)
+                )
+
                 cursor.execute('UPDATE livre SET disponible = 0 WHERE identifiant = ?', (id_livre,))
-                
                 return {
                     'success': True,
                     'message': 'Livre emprunté avec succès'
@@ -108,3 +126,4 @@ class emprunt:
                 'success': False,
                 'message': f'Erreur: {str(e)}'
             }
+

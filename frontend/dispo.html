@@ -71,13 +71,22 @@
 </head>
 <body>
     <label for="list">liste de toutes les livres</label>
-    <select name="list" id="list" size="10">
-        <option value="book1">Book 1</option>
-        <option value="book2">Book 2</option>
-        <option value="book3">Book 3</option>
-        <option value="book4">Book 4</option>
-    </select>
+    <select name="list" id="list" size="10"></select>
     <br>
     <button type="button" onclick="window.location.href='emprunter.html'">emprunter</button>
+    <script>
+        fetch('/api/livres')
+            .then(r => r.json())
+            .then(data => {
+                const select = document.getElementById('list');
+                if (!data.success) return;
+                data.livres.forEach(livre => {
+                    const opt = document.createElement('option');
+                    opt.value = livre.identifiant;
+                    opt.textContent = `${livre.titre} - ${livre.auteur}`;
+                    select.appendChild(opt);
+                });
+            });
+    </script>
 </body>
 </html>
