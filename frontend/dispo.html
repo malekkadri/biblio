@@ -7,9 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
+            background-color: #1f1f1f;
+            color: white;
         }
         label {
             font-weight: bold;
@@ -23,11 +22,12 @@
         }
         button {
             margin-top: 10px;
-            padding: 10px 15px;
-            background-color: #28a745;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            background-color: #e91313;
             color: white;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
@@ -48,31 +48,36 @@
             padding: 0 10px;
         }
         #list {
-            margin-bottom: 10px;
+  
+            width: 100%;          
+            padding: 5px;         
+            border: 2px solid #333;
+            border-radius: 8px;
+            background-color:  #b61010;
+            color: white;
+            font-size: 16px;
         }
-        #viewDetails {
-            background-color: #007bff;
+        #list option {
+            padding: 10px;          
+            margin-bottom: 5px;     
+            border-bottom: 1px solid #ccc; 
         }
-        #viewDetails:hover {
-            background-color: #0056b3;
+        #list option:checked {
+            background-color: #007BFF; 
+            color: white;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <label for="list">liste de toutes les livres</label>
-    <select name="list" id="list">
+    <select name="list" id="list" size="10">
         <option value="book1">Book 1</option>
         <option value="book2">Book 2</option>
         <option value="book3">Book 3</option>
         <option value="book4">Book 4</option>
     </select>
     <br>
-    <label for="details">Details</label>
-    <textarea id="details" rows="4" cols="50" readonly>
-        Book details will be displayed here.
-    </textarea>
-    <br>
-    <button type="button" id="viewDetails">View Details</button>
-        
+    <button type="button" onclick="window.location.href='emprunter.html'">emprunter</button>
 </body>
 </html>
