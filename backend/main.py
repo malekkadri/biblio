@@ -3,8 +3,11 @@ import socketserver
 import json
 from http import HTTPStatus
 from datetime import datetime
+from pathlib import Path
 from database import Database
 from models import utilisateur, livre, emprunt
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / 'frontend'
 
 class RequestHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -12,7 +15,7 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
         self.utilisateur = utilisateur(self.db)
         self.livre = livre(self.db)
         self.emprunt = emprunt(self.db)
-        super().__init__(*args, directory='../frontend', **kwargs)
+        super().__init__(*args, directory=str(FRONTEND_DIR), **kwargs)
     
     def do_OPTIONS(self):
         """Gérer les requêtes CORS"""
@@ -109,7 +112,7 @@ def run_server(port=8000):
     """Démarrer le serveur"""
     with socketserver.TCPServer(("", port), RequestHandler) as httpd:
         print(f"📚 Serveur démarré sur http://localhost:{port}")
-        print("📁 Frontend: ../frontend/")
+        print(f"📁 Frontend: {FRONTEND_DIR}")
         print("🗄️  Base de données: database/biblio.db")
         print("🚀 Appuyez sur Ctrl+C pour arrêter")
         

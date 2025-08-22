@@ -33,4 +33,4 @@ class Database:
                 
         except sqlite3.Error as e:
             print(f"Erreur la connexion a la base {e}")
-            raise
+            raise e
